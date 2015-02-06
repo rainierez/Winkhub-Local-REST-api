@@ -1,6 +1,9 @@
 #! /bin/bash
 PATH=$PATH:~/bin
+
 printf '{'
+
+#get the level and status of the device passed into it if it is an 'HA Dimmable Light'
 function status {
         if  aprontest -l -m $1 | awk '/HA Dimmable Light/'  | cut -c5-21 | grep 'HA Dimmable Light' > /dev/null ;
         then
@@ -33,6 +36,7 @@ function status {
         fi
 }
 
+#if you want to get multiple lights this starts at 1 and will go to a max number if passed or default to 25 if the optional parameter is not included
 if [ $1 == "all" ]; then
 
         for (( DEVICEID=1; DEVICEID<=${2:-25}; DEVICEID++ ))
