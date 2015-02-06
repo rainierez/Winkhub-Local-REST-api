@@ -1,5 +1,5 @@
 # Winkhub-Local-REST-api
-A local RESTful api using the slim framework on a rooted Wink Hub
+A local RESTful api using the slim framework on a rooted Wink Hub. This is limited to 'HA dimmable lights' for right now. I will expand it as I go.
 
 *Tested on a rooted Wink hub with version .56*
 
