@@ -17,22 +17,22 @@ function echoResponse($status_code, $response) {
     echo $response;
 }
 
-$app->get('/status/:did', function($did) {
+$app->get('/:did', function($did) {
         $output = shell_exec('./statuscheck.sh ' .$did);
         echoResponse (200, $output);
 });
 
-$app->get('/status/all/', function() {
+$app->get('/all/', function() {
         $output = shell_exec('./statuscheck.sh all');
         echoResponse (200, $output);
 });
 
-$app->get('/status/all/:maxnum', function($maxnum) {
+$app->get('/all/:maxnum', function($maxnum) {
         $output = shell_exec('./statuscheck.sh all ' .$maxnum);
         echoResponse (200,  $output);
 });
 
-$app->post('/status/', function() use ($app) {
+$app->post('/', function() use ($app) {
   $body = $app->request->getBody();
   $params = json_decode($body);
 
@@ -48,16 +48,16 @@ $app->post('/status/', function() use ($app) {
       $output = shell_exec('./changelevel.sh ' .$params->deviceid .' ' .$params->level);
       echoResponse (200,  '{' .$output .'}');
     } else {
-      echoResponse(200,  '{"Response":"Must include a status or level"}');
+      echoResponse(200,  '{"Error":"Must include a status or level"}');
     }
   } else {
-    echoResponse(200,  '{"Response":"Must include the deviceid"}');
+    echoResponse(200,  '{"Error":"Must include the deviceid"}');
   }
 
 });
 
 $app->get('/', function() use ($app) {
-  echoResponse(200, 'home page');
+  echoResponse(200, '{"Error":"Must include the deviceid"}');
 });
 
 $app->run();
