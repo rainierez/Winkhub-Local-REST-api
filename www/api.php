@@ -37,7 +37,7 @@ $app->post('/', function() use ($app) {
   $params = json_decode($body);
 
   if (array_key_exists("deviceid", $params)) {
-    if (array_key_exists("status", $params) || array_key_exists("level",$params)) {
+    if (array_key_exists("status", $params) && array_key_exists("level",$params)) {
       $output1 = shell_exec('./changestate.sh ' .$params->deviceid .' ' .$params->status);
       $output2 = shell_exec('./changelevel.sh ' .$params->deviceid .' ' .$params->level);
       echoResponse (200, '{' .$output1 .',' .$output2 .'}');
