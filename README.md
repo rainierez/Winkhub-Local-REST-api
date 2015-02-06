@@ -24,7 +24,7 @@ POST | `/` | `<deviceid>, <status>, <level>` | returns confirmation of change. F
 
 ###Examples
 
-To get the status of one device
+####To get the status of one device
 ```
 $ curl -i -H "Accept: application/json" http://<IP of Wink Hub>/api.php/1
 ```
@@ -36,7 +36,7 @@ Returns
 ```
 
 ---
-To get the status of multiple devices, this time limiting it to the first 4
+####To get the status of multiple devices, this time limiting it to the first 4
 ```
 $ curl -i -H "Accept: application/json" http://<IP of Wink Hub>/api.php/all/4
 ```
@@ -47,7 +47,7 @@ Returns
 {"1":{"Status": "ON","Level": "255"},"2":{"Status": "OFF","Level": "125"},"3":{"Status": "OFF","Level": "255"},"4":{"Status": "OFF","Level": "156"}}
 ```
 ---
-Turning the light on and dimming it to a bit less then 50% 
+####Turning the light on and dimming it to a bit less then 50% 
 ```
 $ curl -i -H "Accept: application/json" http://192.168.0.1/index.php -d '{"deviceid":"1","status":"1","level":"100"}'
 ```
@@ -58,7 +58,7 @@ Returns
 {"State":"Update device with master ID 1, setting value ON for attribute 1","Level":"Update device with master ID 1, setting value 100 for attribute 2"}
 ```
 ---
-Turning the light off
+####Turning the light off
 ```
 $ curl -i -H "Accept: application/json" http://192.168.0.1/index.php -d '{"deviceid":"1","status":"0"}'
 ```
