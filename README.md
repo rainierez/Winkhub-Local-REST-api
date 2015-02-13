@@ -1,5 +1,5 @@
 # Winkhub-Local-REST-api
-A local RESTful api using the slim framework on a rooted Wink Hub. This is limited to 'HA dimmable lights' for right now. I will expand it as I go.
+A local RESTful api using the slim framework on a rooted Wink Hub. This is limited to 'HA dimmable lights' and  'On/Off Output' devices for right now. I will expand it as I go.
 
 *Tested on a rooted Wink hub with version .56*
 
@@ -16,17 +16,17 @@ $ chmod u+x /var/www/changelevel.sh
 
 Method | Path | Parameters | outputs
 --- | --- | --- | ---
-GET | `/` | `<deviceid>` | status and level
-GET | `/all` | `<optional max range>` | Loops from 1 to max range (defaults to 25 if nothing passed) and returns status and level for each device
-POST | `/` | `<deviceid>, <status>` | returns confirmation of change
-POST | `/` | `<deviceid>, <level>` | returns confirmation of change
-POST | `/` | `<deviceid>, <status>, <level>` | returns confirmation of change. For status 1 = ON and 0 = OFF. For level 10 = dimmest and 255 = brightest
+GET | `/devices/` | `<deviceid>` | status and level
+GET | `/devices/all` | `<optional max range>` | Loops from 1 to max range (defaults to 25 if nothing passed) and returns status and level for each device
+POST | `/devices/` | `<deviceid>, <status>` | returns confirmation of change
+POST | `/devices/` | `<deviceid>, <level>` | returns confirmation of change
+POST | `/devices/` | `<deviceid>, <status>, <level>` | returns confirmation of change. For status 1 = ON and 0 = OFF. For level 10 = dimmest and 255 = brightest
 
 ###Examples
 
 ####To get the status of one device
 ```
-$ curl -i -H "Accept: application/json" http://<IP of Wink Hub>/api.php/1
+$ curl -i -H "Accept: application/json" http://<IP of Wink Hub>/api.php/devices/1
 ```
 
 Returns
@@ -38,7 +38,7 @@ Returns
 ---
 ####To get the status of multiple devices, this time limiting it to the first 4
 ```
-$ curl -i -H "Accept: application/json" http://<IP of Wink Hub>/api.php/all/4
+$ curl -i -H "Accept: application/json" http://<IP of Wink Hub>/api.php/devices/all/4
 ```
 
 Returns
@@ -49,7 +49,7 @@ Returns
 ---
 ####Turning the light on and dimming it to a bit less then 50% 
 ```
-$ curl -i -H "Accept: application/json" http://192.168.0.1/index.php -d '{"deviceid":"1","status":"1","level":"100"}'
+$ curl -H "Accept: application/json" -X PUT http://192.168.0.1/index.php -d '{"deviceid":"1","status":"1","level":"100"}'
 ```
 
 Returns
@@ -60,7 +60,7 @@ Returns
 ---
 ####Turning the light off
 ```
-$ curl -i -H "Accept: application/json" http://192.168.0.1/index.php -d '{"deviceid":"1","status":"0"}'
+$ curl -H "Accept: application/json" -X PUT http://192.168.0.1/index.php -d '{"deviceid":"1","status":"0"}'
 ```
 
 Returns
