@@ -17,22 +17,27 @@ function echoResponse($status_code, $response) {
     echo $response;
 }
 
-$app->get('/:did', function($did) {
+$app->get('/devices/:did', function($did) {
         $output = shell_exec('./statuscheck.sh ' .$did);
         echoResponse (200, $output);
 });
 
-$app->get('/all/', function() {
+$app->get('/devices/', function() {
         $output = shell_exec('./statuscheck.sh all');
         echoResponse (200, $output);
 });
 
-$app->get('/all/:maxnum', function($maxnum) {
+$app->get('/devices/all/', function() {
+        $output = shell_exec('./statuscheck.sh all');
+        echoResponse (200, $output);
+});
+
+$app->get('/devices/all/:maxnum', function($maxnum) {
         $output = shell_exec('./statuscheck.sh all ' .$maxnum);
         echoResponse (200,  $output);
 });
 
-$app->post('/', function() use ($app) {
+$app->put('/devices/', function() use ($app) {
   $body = $app->request->getBody();
   $params = json_decode($body);
 
@@ -46,12 +51,12 @@ $app->post('/', function() use ($app) {
       echoResponse (200, '{' .$output .'}');
     } else if (array_key_exists("level",$params)) {
       $output = shell_exec('./changelevel.sh ' .$params->deviceid .' ' .$params->level);
-      echoResponse (200,  '{' .$output .'}');
+      echoResponse (200, '{' .$output .'}');
     } else {
-      echoResponse(200,  '{"Error":"Must include a status or level"}');
+      echoResponse(200,  '{"Response":"Must include a status or level"}');
     }
   } else {
-    echoResponse(200,  '{"Error":"Must include the deviceid"}');
+    echoResponse(200,  '{"Response":"Must include a deviceid"}');
   }
 
 });
