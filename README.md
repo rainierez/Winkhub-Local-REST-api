@@ -18,9 +18,9 @@ Method | Path | Parameters | outputs
 --- | --- | --- | ---
 GET | `/devices/` | `<deviceid>` | status and level
 GET | `/devices/all` | `<optional max range>` | Loops from 1 to max range (defaults to 25 if nothing passed) and returns status and level for each device
-POST | `/devices/` | `<deviceid>, <status>` | returns confirmation of change
-POST | `/devices/` | `<deviceid>, <level>` | returns confirmation of change
-POST | `/devices/` | `<deviceid>, <status>, <level>` | returns confirmation of change. For status 1 = ON and 0 = OFF. For level 10 = dimmest and 255 = brightest
+PUT | `/devices/` | `<deviceid>, <status>` | returns confirmation of change
+PUT | `/devices/` | `<deviceid>, <level>` | returns confirmation of change
+PUT | `/devices/` | `<deviceid>, <status>, <level>` | returns confirmation of change. For status 1 = ON and 0 = OFF. For level 10 = dimmest and 255 = brightest
 
 ###Examples
 
